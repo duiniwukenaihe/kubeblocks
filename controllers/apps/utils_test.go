@@ -66,10 +66,10 @@ var _ = Describe("utils", func() {
 	Context("utils", func() {
 		It("getClusterByObject", func() {
 			By(" init cluster, instanceSet, pods")
-			testapps.InitClusterWithHybridComps(&testCtx, clusterDefName,
+			_, _, cluster := testapps.InitClusterWithHybridComps(&testCtx, clusterDefName,
 				clusterVerName, clusterName, statelessCompName, "stateful", consensusCompName)
 			its := testapps.MockInstanceSetComponent(&testCtx, clusterName, consensusCompName)
-			_ = testapps.MockInstanceSetPods(&testCtx, its, clusterName, consensusCompName)
+			_ = testapps.MockInstanceSetPods(&testCtx, its, cluster, consensusCompName)
 
 			newCluster, _ := getClusterByObject(ctx, k8sClient, its)
 			Expect(newCluster != nil).Should(BeTrue())
